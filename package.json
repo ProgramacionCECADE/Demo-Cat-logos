@@ -1,0 +1,42 @@
+{
+  "name": "prototipo-bootcamp",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Catálogo estático con utilidades para ejecutar un servidor Node.js durante desarrollo y despliegue. Demo CECADE 2025.",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "npx serve -s public -l 3000",
+    "start:node": "node server/server.js",
+    "dev": "npx nodemon server/server.js --watch server --watch public",
+    "lint": "echo \"No lint configured\"",
+    "test": "echo \"No tests configured\" && exit 0"
+  },
+  "author": "Tu Nombre <tuemail@example.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.2.3",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "serve": "^14.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://example.com/your/repo.git"
+  },
+  "keywords": [
+    "catalogo",
+    "whatsapp",
+    "static",
+    "express",
+    "bootcamp",
+    "demo"
+  ],
+  "private": false
+}

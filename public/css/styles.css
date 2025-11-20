@@ -1,0 +1,850 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #FFF6D8;
+    background-image: none;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    transition:
+        background-image 0.3s ease,
+        background-color 0.3s ease,
+        background-size 0.3s ease;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Inner container keeps content centered and provides spacing between logo and text */
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+/* Controles visuales para cargar/restablecer fondo (estilos base) */
+.bg-controls {
+    margin-left: auto;
+    display: flex;
+    gap: 10px;
+        .header-inner { display:flex; align-items:center; gap:16px; }
+}
+
+/* El label actúa como botón para seleccionar archivo */
+.bg-controls label {
+    cursor: pointer;
+    background: #0047ab;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Botón para restablecer */
+.bg-controls button {
+    cursor: pointer;
+    background: #dc143c;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+        /* Archivo archivado: la versión activa está en public/css/styles.css */
+    font-weight: 600;
+    border: none;
+}
+
+/* El input file se mantiene oculto; se usa el label para activarlo */
+#bg-input {
+    display: none;
+}
+
+/* Pequeños ajustes responsivos para los controles de fondo */
+@media (max-width: 480px) {
+    .bg-controls label,
+    .bg-controls button {
+        padding: 6px 10px;
+        font-size: 0.95rem;
+    }
+}
+
+/* Logo area */
+.logo-container,
+.logo-container img,
+#business-logo {
+    display: block;
+}
+
+.logo-container,
+#logo-container {
+    /* fixed visual area for the logo; change size here if you want a different baseline */
+    width: 82px;
+    height: 82px;
+    flex: 0 0 82px;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Image inside logo area scales to fit while preserving aspect ratio */
+#business-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+/* Text to the right of the logo */
+.header-text {
+    text-align: left;
+}
+
+.header-text h1 {
+    font-size: 1.9rem;
+    margin: 0 0 6px 0;
+    color: #000000;
+}
+
+.header-text p {
+    font-size: 1rem;
+    opacity: 0.95;
+    margin: 0;
+}
+
+/* Keep accessibility: if logo is missing, text still aligns nicely */
+.header-text .brand-sub {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Responsive adjustments: stack on small screens */
+@media (max-width: 480px) {
+    .header-inner {
+        flex-direction: column;
+        align-items: center;
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .logo-container,
+    #logo-container,
+    #business-logo {
+        width: 56px;
+        height: 56px;
+        flex: 0 0 56px;
+    }
+
+    .header-text {
+        text-align: center;
+    }
+
+    .header-text h1 {
+        font-size: 1.4rem;
+    }
+
+    .header-text p {
+        font-size: 0.95rem;
+    }
+}
+
+main {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(220, 20, 60, 0.2);
+}
+
+.product-image {
+    width: 100%;
+    height: 220px;
+    display: block;
+    background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+    overflow: hidden;
+    position: relative;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* cover asegura que la imagen llene el contenedor sin mostrar bordes */
+    object-position: center center;
+    display: block;
+}
+
+.product-image .placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 3em;
+}
+
+.product-info {
+    padding: 20px;
+}
+
+.product-info h3 {
+    color: #0047ab;
+    margin-bottom: 10px;
+    font-size: 1.3em;
+}
+
+.product-info p {
+    color: #666;
+    margin-bottom: 15px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.product-price {
+    color: #dc143c;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+/* Mostrar precio original tachado y menos llamativo cuando hay descuento */
+.price-original {
+    color: #888;
+    font-size: 0.95em;
+    text-decoration: line-through;
+    margin-right: 8px;
+}
+
+.price-discounted {
+    color: #dc143c;
+    font-size: 1.3em;
+    font-weight: 800;
+}
+
+/* Panel de descuentos dentro del panel de admin */
+.discount-panel {
+    margin-top: 12px;
+    background: rgba(0,0,0,0.03);
+    padding: 12px;
+    border-radius: 8px;
+}
+.discount-panel h4 {
+    margin: 0 0 8px 0;
+    font-size: 0.95rem;
+    color: #0047ab;
+}
+.discount-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.discount-row select,
+.discount-row input[type="number"] {
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 480px) {
+    .discount-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 16px;
+    max-width: 700px;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.close {
+    color: #dc143c;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: #0047ab;
+}
+
+#modal-title {
+    color: #0047ab;
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+.carousel {
+    position: relative;
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+.carousel-container {
+    overflow: hidden;
+    border-radius: 12px;
+    background: #f5f5f5;
+}
+
+.carousel-items {
+    display: flex;
+    transition: transform 0.4s ease-in-out;
+}
+
+.carousel-item {
+    min-width: 100%;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+}
+
+.carousel-item img,
+.carousel-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* usar cover en el carrusel para evitar bordes expuestos */
+    object-position: center center;
+}
+
+.carousel-item.placeholder {
+    font-size: 4em;
+    color: #999;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 71, 171, 0.8);
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+    z-index: 10;
+}
+
+.carousel-btn:hover {
+    background-color: rgba(220, 20, 60, 0.9);
+}
+
+.carousel-btn.prev {
+    left: 10px;
+}
+
+.carousel-btn.next {
+    right: 10px;
+}
+
+#modal-description {
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.8;
+    font-size: 1.05em;
+}
+
+#modal-price {
+    color: #dc143c;
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.order-btn {
+    background: linear-gradient(135deg, #0047ab 0%, #dc143c 100%);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.1em;
+    border-radius: 8px;
+    cursor: pointer;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+    width: 100%;
+    font-weight: bold;
+}
+
+.order-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(220, 20, 60, 0.4);
+}
+
+/* Estilos específicos para pedido por WhatsApp */
+.order-btn.whatsapp {
+    background: linear-gradient(90deg, #25d366 0%, #128c7e 100%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 12px 18px;
+    font-size: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(37, 211, 102, 0.18);
+    width: 100%;
+}
+
+.order-btn.whatsapp .whatsapp-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+}
+
+.order-btn.whatsapp .order-text {
+    font-weight: 700;
+}
+
+.order-btn.whatsapp:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 28px rgba(18, 140, 126, 0.25);
+}
+
+.order-btn.whatsapp:active {
+    transform: translateY(0);
+    box-shadow: 0 6px 18px rgba(18, 140, 126, 0.18);
+}
+
+/* Soporte para icono en dispositivos pequeños */
+@media (max-width: 480px) {
+    .order-btn.whatsapp {
+        padding: 10px 12px;
+    }
+    .order-btn.whatsapp .order-text {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2em;
+    }
+
+    .catalog-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+    }
+
+    .modal-content {
+        margin: 10% auto;
+        padding: 20px;
+        max-width: 90%;
+    }
+
+    .carousel-item {
+        height: 250px;
+    }
+
+    .carousel-btn {
+        padding: 10px 15px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .catalog-grid {
+        grid-template-columns: 1fr;
+    }
+
+    header h1 {
+        font-size: 1.5em;
+    }
+
+    .carousel-item {
+        height: 200px;
+    }
+}
+
+
+/* Contenedor del icono de configuración en el header */
+.settings-button {
+    margin-left: 12px;
+    background: linear-gradient(90deg, #0b63d6 0%, #0047ab 100%);
+    border: 1px solid rgba(255,255,255,0.12);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    border-radius: 8px;
+    color: white;
+    position: relative;
+    z-index: 2000;
+}
+.settings-button:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* Modal/panel de administración (token) */
+.admin-modal {
+    display: none;
+    position: fixed;
+    z-index: 1200;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.admin-modal.open {
+    display: flex;
+}
+
+.admin-panel {
+    background: #ffffff;
+    color: #222;
+    width: 100%;
+    max-width: 420px;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.admin-panel h3 {
+    margin: 0 0 12px 0;
+    color: #0047ab;
+    font-size: 1.15rem;
+}
+
+.admin-panel p {
+    margin: 0 0 16px 0;
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.admin-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.admin-row input[type="password"] {
+    flex: 1;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+.admin-row button {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background: #0047ab;
+    color: white;
+    font-weight: 600;
+}
+
+.admin-msg {
+    font-size: 0.9rem;
+    color: #d00;
+    min-height: 1.2em;
+}
+
+.admin-actions {
+    margin-top: 8px;
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.admin-actions .cancel {
+    background: transparent;
+    color: #444;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Panel donde se ubican los controles de fondo (inicialmente oculto y bloqueado) */
+#bg-panel {
+    display: none;
+    align-items: center;
+    gap: 10px;
+}
+
+#bg-panel.visible {
+    display: inline-flex;
+}
+
+/* Ajustes de estilo para los controles dentro del panel */
+.bg-btn {
+    cursor: pointer;
+    background: #0047ab;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-weight: 600;
+    border: none;
+}
+
+.bg-btn.reset {
+    background: #dc143c;
+}
+
+/* Asegurar que el header tenga espacio para el icono */
+.header-inner {
+    align-items: center;
+    display: flex;
+}
+
+/* Soporte para esconder input file usado por el label */
+#bg-file-input,
+#bg-input {
+    display: none;
+}
+
+/* En pantallas pequeñas, ajustar la ubicación del icono y panel admin */
+@media (max-width: 480px) {
+    .settings-button {
+        margin-left: 8px;
+    }
+    .admin-panel {
+        max-width: 94%;
+    }
+}
+
+/* ==================================================
+   Mejoras responsive adicionales para móviles largos
+   - Optimiza layouts en pantallas estrechas y altas
+   - Usa aspect-ratio para imágenes para evitar recortes extra
+   - Hace modales y botones más amigables en pantallas pequeñas
+   ================================================== */
+
+/* Regla general (anula la altura fija en product-image) */
+.product-image {
+    /* Reemplaza la altura fija por una relación de aspecto fluida */
+    aspect-ratio: 4 / 3;
+    height: auto;
+    min-height: 0;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Breakpoint para dispositivos muy estrechos (teléfonos largos) */
+@media (max-width: 420px) {
+    .header-inner {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 12px;
+        flex-wrap: wrap; /* evita desbordes horizontales */
+    }
+
+    .logo-container,
+    #logo-container,
+    #business-logo {
+        width: 48px;
+        height: 48px;
+        flex: 0 0 48px;
+    }
+
+    .header-text h1 {
+        font-size: clamp(1.1rem, 5.5vw, 1.5rem);
+        margin-bottom: 4px;
+        text-align: center;
+    }
+
+    .header-text p {
+        font-size: clamp(0.85rem, 3.5vw, 1rem);
+        text-align: center;
+    }
+
+    /* Hacer que los controles de fondo se adapten y no salgan del viewport.
+       IMPORTANT: mantener el panel oculto por defecto; solo mostrar cuando
+       el servidor/UI le añada la clase .visible (misma lógica que en desktop). */
+    .bg-controls {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    /* El panel #bg-panel permanece oculto por defecto y solo se muestra
+       cuando tiene la clase .visible. Esto evita que en móvil el panel quede
+       expuesto accidentalmente. */
+    #bg-panel {
+        display: none;
+    }
+
+    #bg-panel.visible {
+        display: inline-flex;
+        width: 100%;
+        justify-content: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    /* Grid en móvil: forzar una sola columna y reducir gaps */
+    .catalog-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .product-card {
+        border-radius: 10px;
+    }
+
+    .product-info {
+        padding: 12px;
+    }
+
+    .product-info h3 {
+        font-size: 1.05rem;
+        margin-bottom: 8px;
+    }
+
+    .product-price {
+        font-size: 1.15rem;
+    }
+
+    /* Modal y carrusel: ocupar más ancho y reducir altura fija */
+    .modal-content {
+        width: 100%;
+        max-width: 100%;
+        margin: 6% 6px;
+        padding: 14px;
+        border-radius: 12px;
+        max-height: 92vh;
+        box-sizing: border-box;
+    }
+
+    .carousel-item {
+        height: auto;
+        aspect-ratio: 16 / 9;
+    }
+
+    .carousel-btn {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+
+    /* Botones táctiles más grandes y confortables en móvil */
+    .bg-controls label,
+    .bg-controls button,
+    .bg-btn,
+    .order-btn,
+    .admin-row button {
+        padding: 10px 14px;
+        font-size: 1rem;
+    }
+
+    /* Ajustes panel admin en móvil estrecho */
+    .admin-panel {
+        width: 100%;
+        max-width: 96%;
+        padding: 14px;
+    }
+}
+
+/* Punto intermedio para tablets o pantallas medianas */
+@media (max-width: 768px) {
+    .product-image {
+        aspect-ratio: 4 / 3;
+        height: auto;
+    }
+
+    .carousel-item {
+        height: auto;
+        aspect-ratio: 16 / 9;
+    }
+
+    .catalog-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 18px;
+    }
+}
+

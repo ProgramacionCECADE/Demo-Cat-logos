@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Catálogo - Mi Negocio</title>
+        <link rel="stylesheet" href="/css/styles.css" />
+    </head>
+
+    <body>
+        <header>
+            <div class="header-inner">
+                <div class="logo-container" id="logo-container" aria-hidden="false">
+                    <img id="business-logo" src="" alt="Logo de la empresa" />
+                </div>
+
+                <div class="header-text">
+                   <h3>Ejemplo  Programacion</h3>
+                    <h1>Cerdin Chicharronsin</h1>
+                    <p>Los que aman el Chicharon desde Nuestro corazon</p>
+                </div>
+
+                <div id="bg-panel" aria-hidden="true">
+                    <label class="bg-btn" for="bg-file-input" title="Seleccionar imagen para fondo">Seleccionar fondo</label>
+                    <input id="bg-file-input" type="file" accept="image/*" />
+                    <button id="bg-reset-btn" class="bg-btn reset" title="Restablecer fondo">Restablecer fondo</button>
+                    <div id="discount-panel" class="discount-panel" aria-hidden="true">
+                        <h4>Aplicar descuento</h4>
+                        <div class="discount-row">
+                            <select id="discount-product-select" aria-label="Seleccionar producto"></select>
+                            <input id="discount-percent" type="number" min="1" max="99" placeholder="%" aria-label="Porcentaje de descuento">
+                            <input id="discount-days" type="number" min="1" max="365" placeholder="Días" aria-label="Duración en días">
+                            <button id="discount-apply-btn" class="bg-btn">Aplicar</button>
+                        </div>
+                        <div id="discount-msg" class="admin-msg" aria-live="polite"></div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div id="catalog" class="catalog-grid"></div>
+        </main>
+
+        <div id="admin-modal" class="admin-modal" role="dialog" aria-modal="true" aria-hidden="true">
+            <div class="admin-panel" role="document" aria-labelledby="admin-title">
+                <h3 id="admin-title">Acceso de administrador</h3>
+                <p>Introduce el token de administrador para mostrar las opciones avanzadas (fondo).</p>
+
+                <div class="admin-row">
+                    <input id="admin-token-input" type="password" placeholder="Token de administrador" aria-label="Token de administrador" />
+                    <button id="admin-token-verify-btn" type="button">Verificar</button>
+                </div>
+
+                <div class="admin-msg" id="admin-token-msg" aria-live="polite"></div>
+
+                <div class="admin-actions">
+                    <button class="cancel" id="admin-cancel-btn" type="button">Cerrar</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 id="modal-title"></h2>
+                <div class="carousel">
+                    <button class="carousel-btn prev">&lt;</button>
+                    <div class="carousel-container">
+                        <div id="carousel-items" class="carousel-items"></div>
+                    </div>
+                    <button class="carousel-btn next">&gt;</button>
+                </div>
+                <p id="modal-description"></p>
+                <p id="modal-price"></p>
+                <p id="modal-discount-timer" class="modal-discount-timer" aria-live="polite" style="display:none"></p>
+                <button id="order-btn" class="order-btn whatsapp" aria-label="Pedir por WhatsApp (se abrirá WhatsApp)" title="Abrir WhatsApp para hacer el pedido">
+                    <span class="order-text">Pedir por WhatsApp</span>
+                </button>
+            </div>
+        </div>
+
+        <script type="module" src="/js/main.js"></script>
+        <script type="module" src="/js/bg-control.js"></script>
+        <script type="module" src="/js/settings.js"></script>
+    </body>
+
+    <footer>
+        <p>Demostración - Programacion 2025</p>
+    </footer>
+</html>
