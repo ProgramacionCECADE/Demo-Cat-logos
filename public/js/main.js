@@ -391,6 +391,42 @@ async function getApiOrigin() {
 async function syncDiscountsFromServer() {
   const origin = await getApiOrigin();
   const url = `${origin}/api/discounts`;
+
+  // Check for unsaved local changes
+  const isDirty = localStorage.getItem('discountsDirty') === 'true';
+
+  if (isDirty) {
+    console.log('Detectados cambios locales no guardados (dirty flag). Intentando sincronizar al servidor...');
+    try {
+      const localDiscounts = JSON.parse(localStorage.getItem('productDiscounts') || '{}');
+
+      // Attempt to push local changes to server
+      const resp = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include', // Important for admin cookie
+        body: JSON.stringify(localDiscounts)
+      });
+
+      if (resp.ok) {
+        console.log('Sincronización exitosa: cambios locales guardados en servidor.');
+        localStorage.removeItem('discountsDirty');
+        // After successful push, we can optionally re-fetch or just trust our local state.
+        // Let's trust local state to avoid race conditions.
+        return;
+      } else {
+        console.warn(`Falló la sincronización al servidor (Status ${resp.status}). Manteniendo versión local.`);
+        // Do NOT overwrite local data with server data if push failed
+        return;
+      }
+    } catch (err) {
+      console.warn('Error de red al intentar sincronizar cambios locales:', err);
+      // Keep local data
+      return;
+    }
+  }
+
+  // Normal flow: No local changes, fetch from server
   try {
     const resp = await fetch(url, { method: 'GET', credentials: 'same-origin' });
     const contentType = resp.headers.get('content-type') || '';

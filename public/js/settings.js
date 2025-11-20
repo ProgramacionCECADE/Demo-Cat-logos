@@ -219,12 +219,19 @@ function initDiscountPanel() {
       // Save locally first
       localStorage.setItem('productDiscounts', JSON.stringify(discounts));
       window.dispatchEvent(new StorageEvent('storage', { key: 'productDiscounts', newValue: JSON.stringify(discounts) }));
+
+      // Mark as dirty before attempting server save
+      localStorage.setItem('discountsDirty', 'true');
+
       // Try to persist globally on the server. If it fails, keep local change.
       try {
         await updateDiscountsOnServer(discounts);
+        // Save successful, clear dirty flag
+        localStorage.removeItem('discountsDirty');
         showDiscountMsg('Descuento aplicado globalmente.', 'success');
       } catch (err) {
         console.warn('No se pudo guardar descuentos en el servidor:', err);
+        // Leave dirty flag set so we retry later
         showDiscountMsg('Descuento aplicado localmente (no fue posible guardar en el servidor).', 'success');
       }
       percentInput.value = ''; daysInput.value = '';
