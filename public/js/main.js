@@ -90,10 +90,10 @@ function formatTimeRemaining(tr) {
 // Función reutilizable para actualizar cualquier elemento de timer
 function updateTimerElement(element, productId, textPrefix = 'La oferta termina en: ') {
   if (!element) return false;
-  
+
   const discounts = loadDiscountsFromStorage();
   const meta = discounts && discounts[productId];
-  
+
   if (meta && meta.expiresAt && Date.now() < meta.expiresAt) {
     const tr = getTimeRemaining(meta.expiresAt);
     element.textContent = `${textPrefix}${formatTimeRemaining(tr)}`;
@@ -371,11 +371,16 @@ document.addEventListener("DOMContentLoaded", () => {
 async function getApiOrigin() {
   try {
     const defaultServer = 'http://127.0.0.1:3000';
+    // If opened as a local file, fallback to default localhost server
     if (location.protocol === 'file:' || !location.host) return defaultServer;
-    if (location.hostname === 'localhost') {
-      const port = location.port || 3000;
-      return `${location.protocol}//127.0.0.1:${port}`;
+
+    // If running on localhost/127.0.0.1, use the appropriate port
+    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+      const port = location.port || '3000';
+      return `${location.protocol}//${location.hostname}:${port}`;
     }
+
+    // For production/hosting environments, use current location's origin
     return `${location.protocol}//${location.host}`;
   } catch (e) {
     return 'http://127.0.0.1:3000';
