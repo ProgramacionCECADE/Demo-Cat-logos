@@ -30,6 +30,7 @@ function initCatalog() {
     return;
   }
 
+  catalogGrid.innerHTML = '';
   catalogConfig.products.forEach((product) => {
     const card = createProductCard(product);
     catalogGrid.appendChild(card);
